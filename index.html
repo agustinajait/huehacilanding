@@ -1,0 +1,941 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>HUEHACI · Ecosistema</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+<style>
+  :root{
+    --bg:#FFFFFF;
+    --ink:#0B0B0C;
+    --ink-soft:#3A3A3C;
+    --line:#111111;
+    --line-soft:#E4E4E4;
+    --yellow:#FFEC00;
+    --yellow-deep:#F7DE00;
+    --navy:#0D1B2A;
+    --ember:#E2571C;
+    --gold:#F2B138;
+    --paper:#FCFCFB;
+    --emood-teal:#2AACD6;
+    --emood-green:#7CB93E;
+  }
+  *{box-sizing:border-box; margin:0; padding:0;}
+  html{scroll-behavior:smooth;}
+  @media (prefers-reduced-motion: reduce){ html{scroll-behavior:auto;} *{animation:none !important; transition:none !important;} }
+
+  body{
+    background:var(--bg);
+    color:var(--ink);
+    font-family:'Avenir Next','Century Gothic',Montserrat,sans-serif;
+    -webkit-font-smoothing:antialiased;
+    overflow-x:hidden;
+  }
+
+  .mono{ font-family:'JetBrains Mono', 'Courier New', monospace; }
+  .display{ font-family:Montserrat, 'Avenir Next', sans-serif; }
+
+  a{ color:inherit; }
+
+  ::selection{ background:var(--yellow); color:var(--ink); }
+
+  /* ---------- Scroll reveal ---------- */
+  .reveal{ opacity:0; transform:translateY(18px); transition:opacity .6s ease, transform .6s ease; }
+  .reveal.in{ opacity:1; transform:translateY(0); }
+
+  /* ---------- Vertical brand tab ---------- */
+  .brand-tab{
+    position:fixed;
+    top:0; right:0;
+    height:100vh;
+    width:46px;
+    display:flex;
+    flex-direction:column;
+    align-items:center;
+    justify-content:flex-end;
+    padding-bottom:28px;
+    z-index:500;
+    border-left:1px solid var(--line-soft);
+    background:var(--bg);
+  }
+  .brand-tab .dot{
+    width:12px; height:12px;
+    background:var(--yellow);
+    margin-top:14px;
+    flex-shrink:0;
+  }
+  .brand-tab span{
+    writing-mode:vertical-rl;
+    transform:rotate(180deg);
+    font-weight:800;
+    font-size:13px;
+    letter-spacing:.14em;
+    text-transform:lowercase;
+    white-space:nowrap;
+  }
+  @media (max-width:720px){ .brand-tab{ display:none; } }
+
+  /* ---------- HUEHACI logomark: lowercase "e'" in Avenir Next ---------- */
+  .logomark{
+    --size:1;
+    width:calc(220px * var(--size));
+    height:calc(220px * var(--size));
+    display:flex;
+    align-items:center;
+    justify-content:center;
+    flex-shrink:0;
+  }
+  .logomark span{
+    font-family:'Avenir Next','Century Gothic',Montserrat,sans-serif;
+    font-weight:500;
+    font-size:calc(128px * var(--size));
+    line-height:1;
+    color:var(--ink);
+  }
+  .logomark .e-hl{
+    background:linear-gradient(to bottom, transparent 60%, var(--yellow) 60%);
+    padding:0 .04em;
+  }
+  .logomark .apostrophe{
+    color:var(--yellow-deep);
+  }
+
+  /* ---------- Layout shell ---------- */
+  .wrap{
+    max-width:1180px;
+    margin:0 auto;
+    padding:0 56px;
+  }
+  @media (max-width:900px){ .wrap{ padding:0 24px; } }
+  .pad-right{ padding-right:46px; }
+  @media (max-width:720px){ .pad-right{ padding-right:0; } }
+
+  section{ position:relative; }
+
+  .hairline{ border:0; border-top:1px solid var(--line); width:100%; }
+  .hairline-soft{ border:0; border-top:1px solid var(--line-soft); width:100%; }
+
+  .eyebrow{
+    font-family:'JetBrains Mono','Courier New',monospace;
+    font-size:12.5px;
+    letter-spacing:.16em;
+    text-transform:uppercase;
+    font-weight:700;
+    display:inline-block;
+  }
+
+  .hl{
+    background:linear-gradient(to bottom, transparent 62%, var(--yellow) 62%);
+    padding:0 .05em;
+  }
+
+  /* ---------- Nav ---------- */
+  header.nav{
+    position:sticky; top:0;
+    z-index:400;
+    background:rgba(255,255,255,.92);
+    backdrop-filter:blur(6px);
+    border-bottom:1px solid var(--line-soft);
+  }
+  .nav-inner{
+    max-width:1180px; margin:0 auto;
+    padding:18px 56px 18px 56px;
+    padding-right:calc(56px + 46px);
+    display:flex; align-items:center; justify-content:space-between;
+    gap:24px;
+  }
+  @media (max-width:900px){ .nav-inner{ padding:16px 24px; } }
+  .logo-word{
+    font-weight:900;
+    font-size:19px;
+    letter-spacing:.01em;
+  }
+  .nav-logo{
+    display:inline-flex;
+    align-items:center;
+    text-decoration:none;
+    line-height:0;
+  }
+  .nav-mark{ --size:.17; }
+  .nav-links{
+    display:flex; gap:30px;
+    font-size:14px;
+    font-weight:600;
+  }
+  .nav-links a{ text-decoration:none; opacity:.75; transition:opacity .15s ease; }
+  .nav-links a:hover, .nav-links a:focus-visible{ opacity:1; }
+  @media (max-width:720px){ .nav-links{ display:none; } }
+
+  /* ---------- Hero ---------- */
+  .hero{
+    padding:104px 0 84px;
+  }
+  .hero .kicker-rule{
+    width:120px;
+    border-top:1px solid var(--ink);
+    margin-bottom:26px;
+  }
+  h1.giant{
+    font-weight:900;
+    font-size:clamp(58px, 10vw, 128px);
+    line-height:.92;
+    letter-spacing:-.015em;
+    text-transform:uppercase;
+  }
+  .hero-sub{
+    font-family:'JetBrains Mono','Courier New',monospace;
+    font-style:normal;
+    font-size:14.5px;
+    letter-spacing:.03em;
+    text-transform:uppercase;
+    color:var(--ink-soft);
+    margin-top:22px;
+    max-width:640px;
+    border-top:1px solid var(--line-soft);
+    padding-top:16px;
+  }
+  .hero-def{
+    max-width:640px;
+    font-size:18px;
+    line-height:1.65;
+    margin-top:34px;
+    color:var(--ink-soft);
+  }
+  .hero-def b{ color:var(--ink); }
+  .hero-ctas{
+    display:flex; gap:16px; margin-top:44px; flex-wrap:wrap;
+  }
+  .btn{
+    display:inline-flex; align-items:center; gap:8px;
+    font-weight:700; font-size:14.5px;
+    padding:15px 26px;
+    text-decoration:none;
+    border:1px solid var(--ink);
+    transition:background .18s ease, color .18s ease;
+  }
+  .btn-solid{ background:var(--ink); color:#fff; }
+  .btn-solid:hover, .btn-solid:focus-visible{ background:var(--ember); border-color:var(--ember); }
+  .btn-ghost:hover, .btn-ghost:focus-visible{ background:var(--yellow); }
+
+  .hero-grid{
+    max-width:760px;
+  }
+  .hero-mark-col{ display:none; }
+
+  /* ---------- Mision ---------- */
+  .mision{
+    padding:70px 0 76px;
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .mision-quote{
+    font-size:clamp(24px, 3.6vw, 40px);
+    font-style:italic;
+    line-height:1.35;
+    max-width:920px;
+    font-weight:500;
+  }
+  .mision-quote .hl{ font-style:normal; font-weight:700; }
+  .mision-src{
+    margin-top:22px;
+    font-size:13px;
+    color:var(--ink-soft);
+  }
+
+  /* ---------- Ejes section ---------- */
+  .ejes{ padding:96px 0 40px; }
+  .section-head{ margin-bottom:56px; max-width:720px; }
+  .section-head h2{
+    font-size:clamp(30px,4vw,46px);
+    font-weight:800;
+    text-transform:uppercase;
+    letter-spacing:-.01em;
+    margin-top:14px;
+  }
+  .section-head p{
+    margin-top:16px;
+    color:var(--ink-soft);
+    font-size:16px;
+    line-height:1.6;
+    max-width:600px;
+  }
+
+  .acronym-strip{
+    display:flex;
+    gap:2px;
+    margin:26px 0 0;
+    flex-wrap:wrap;
+  }
+  .acronym-strip .chip{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:700;
+    font-size:12px;
+    padding:6px 10px;
+    background:var(--ink);
+    color:#fff;
+  }
+  .acronym-strip .chip.active{ background:var(--yellow); color:var(--ink); }
+
+  .eje-row{
+    display:grid;
+    grid-template-columns:64px 1.1fr 1.4fr .9fr;
+    gap:28px;
+    padding:34px 0;
+    border-top:1px solid var(--line-soft);
+    align-items:start;
+  }
+  .eje-row:last-child{ border-bottom:1px solid var(--line-soft); }
+  @media (max-width:900px){
+    .eje-row{ grid-template-columns:1fr; gap:14px; padding:28px 0; }
+  }
+
+  .eje-code{
+    font-family:'JetBrains Mono',monospace;
+    font-weight:800;
+    font-size:22px;
+    width:52px; height:52px;
+    display:flex; align-items:center; justify-content:center;
+    border:1.5px solid var(--ink);
+    flex-shrink:0;
+  }
+  .eje-row.has-tool .eje-code{ background:var(--yellow); border-color:var(--ink); }
+
+  .eje-title-col h3{
+    font-size:20px;
+    font-weight:800;
+    text-transform:uppercase;
+    line-height:1.25;
+  }
+  .eje-title-col .icon{
+    width:26px; height:26px;
+    margin-bottom:10px;
+    color:var(--ink);
+  }
+
+  .eje-list{
+    list-style:none;
+    font-size:14.5px;
+    color:var(--ink-soft);
+    line-height:1.9;
+  }
+  .eje-list li::before{
+    content:"— ";
+    color:var(--ink);
+  }
+
+  .eje-tool-col{ display:flex; flex-direction:column; align-items:flex-start; gap:10px; }
+  .tool-pill{
+    display:inline-flex; align-items:center; gap:9px;
+    padding:9px 15px;
+    border:1px solid var(--ink);
+    font-weight:700;
+    font-size:13.5px;
+    text-decoration:none;
+    background:#fff;
+    transition:transform .15s ease, background .15s ease;
+  }
+  .tool-pill:hover, .tool-pill:focus-visible{ background:var(--ink); color:#fff; transform:translateX(2px); }
+  .tool-pill .swatch{ width:9px; height:9px; border-radius:50%; flex-shrink:0; }
+  .pending-note{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    color:#9A9A9A;
+    text-transform:uppercase;
+    letter-spacing:.06em;
+  }
+  .content-credit{
+    font-size:13px;
+    font-style:italic;
+    color:var(--ink-soft);
+    max-width:180px;
+    line-height:1.5;
+  }
+
+  /* ---------- Herramientas ---------- */
+  .herramientas{
+    padding:100px 0 96px;
+    background:var(--paper);
+    border-top:1px solid var(--line);
+    border-bottom:1px solid var(--line);
+  }
+  .tools-grid{
+    display:grid;
+    grid-template-columns:repeat(2, 1fr);
+    gap:2px;
+    background:var(--line);
+    border:1px solid var(--line);
+    margin-top:20px;
+  }
+  @media (max-width:760px){ .tools-grid{ grid-template-columns:1fr; } }
+  .tool-card{
+    background:#fff;
+    padding:42px;
+    display:flex;
+    flex-direction:column;
+    gap:16px;
+    min-height:290px;
+  }
+  .tool-card .top-row{
+    display:flex; align-items:flex-start; justify-content:space-between; gap:14px;
+  }
+  .tool-card .eje-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11.5px;
+    font-weight:700;
+    padding:4px 8px;
+    border:1px solid var(--ink);
+    white-space:nowrap;
+  }
+  .tool-card h3{
+    font-size:30px;
+    font-weight:900;
+    letter-spacing:-.01em;
+  }
+  .tool-card .role{
+    font-size:14px;
+    font-weight:700;
+    color:var(--ember);
+    text-transform:uppercase;
+    letter-spacing:.03em;
+    font-family:'JetBrains Mono',monospace;
+  }
+  .tool-card p.desc{
+    font-size:15px;
+    line-height:1.65;
+    color:var(--ink-soft);
+    max-width:440px;
+  }
+  .go{
+    margin-top:auto;
+    font-weight:700;
+    font-size:14px;
+    text-decoration:none;
+    display:inline-flex;
+    align-items:center;
+    gap:6px;
+    width:fit-content;
+    border-bottom:1.5px solid var(--ink);
+    padding-bottom:2px;
+  }
+  .go:hover, .go:focus-visible{ border-color:var(--ember); color:var(--ember); }
+
+  .tool-icon{
+    width:44px; height:44px;
+    border-radius:50%;
+    flex-shrink:0;
+  }
+  .tool-icon.korai{ background:radial-gradient(circle at 35% 30%, var(--gold), var(--ember) 60%, var(--navy) 110%); }
+  .tool-icon.pulso{ background:radial-gradient(circle at 35% 30%, #fff 0%, var(--gold) 45%, var(--ember) 100%); }
+  .tool-icon.oportunai{ background:radial-gradient(circle at 35% 30%, var(--yellow) 0%, var(--gold) 55%, var(--ember) 110%); }
+  .tool-icon.koratic{ background:radial-gradient(circle at 35% 30%, #4a5f75, var(--navy) 65%, #000 110%); }
+  .tool-icon.emood{ background:linear-gradient(135deg, var(--emood-teal) 0%, var(--emood-green) 100%); }
+
+  .tools-grid.five .tool-card:last-child{ grid-column:1 / -1; }
+  .tools-grid.five .tool-card:last-child .desc{ max-width:640px; }
+
+  /* ---------- Organizaciones ---------- */
+  /* ---------- Caso de uso: Caipli Lab ---------- */
+  .caso{ padding:96px 0; }
+  .beta-tag{
+    display:inline-block;
+    font-size:12.5px;
+    font-weight:700;
+    letter-spacing:.06em;
+    text-transform:uppercase;
+    background:var(--yellow);
+    color:var(--ink);
+    padding:5px 10px;
+    vertical-align:middle;
+    margin-left:14px;
+    transform:translateY(-4px);
+  }
+  @media (max-width:600px){ .beta-tag{ display:block; margin:12px 0 0; width:fit-content; transform:none; } }
+  .caso-panel{
+    border:1px solid var(--ink);
+    padding:44px;
+  }
+  @media (max-width:600px){ .caso-panel{ padding:28px; } }
+  .caso-ejes{ display:flex; gap:2px; flex-wrap:wrap; }
+  .caso-labels{
+    margin-top:16px;
+    font-size:13px;
+    color:var(--ink-soft);
+    letter-spacing:.02em;
+  }
+  .caso-tools{ display:flex; flex-wrap:wrap; gap:12px; }
+
+  .orgs{ padding:96px 0; }
+  .org-grid{
+    display:grid;
+    grid-template-columns:repeat(3, 1fr);
+    gap:1px;
+    background:var(--line-soft);
+    border:1px solid var(--line-soft);
+    margin-top:40px;
+  }
+  @media (max-width:760px){ .org-grid{ grid-template-columns:repeat(2,1fr); } }
+  @media (max-width:480px){ .org-grid{ grid-template-columns:1fr; } }
+  .org-cell{
+    background:#fff;
+    padding:30px 26px;
+    font-weight:700;
+    font-size:15px;
+    display:flex;
+    align-items:center;
+    min-height:96px;
+  }
+
+  /* ---------- CTA strip ---------- */
+  .cta{
+    background:var(--ink);
+    color:#fff;
+    padding:88px 0;
+    text-align:left;
+  }
+  .cta h2{
+    font-size:clamp(30px,5vw,54px);
+    font-weight:900;
+    line-height:1.1;
+    max-width:760px;
+    text-transform:uppercase;
+  }
+  .cta h2 .hl{ background:linear-gradient(to bottom, transparent 62%, var(--yellow) 62%); color:var(--ink); }
+  .cta p{ margin-top:20px; color:#C9C9C9; max-width:520px; font-size:16px; line-height:1.6; }
+  .cta .hero-ctas .btn{ border-color:#fff; }
+  .cta .btn-solid{ background:#fff; color:var(--ink); }
+  .cta .btn-solid:hover{ background:var(--yellow); border-color:var(--yellow); color:var(--ink); }
+  .cta .btn-ghost{ color:#fff; }
+  .cta .btn-ghost:hover{ color:var(--ink); }
+
+  /* ---------- Footer ---------- */
+  footer{
+    padding:56px 0 40px;
+  }
+  .footer-grid{
+    display:grid;
+    grid-template-columns:1.4fr repeat(3, 1fr);
+    gap:32px;
+  }
+  @media (max-width:760px){ .footer-grid{ grid-template-columns:repeat(2,1fr); } }
+  .footer-grid h4{
+    font-family:'JetBrains Mono',monospace;
+    font-size:12px;
+    letter-spacing:.1em;
+    text-transform:uppercase;
+    margin-bottom:16px;
+    color:var(--ink-soft);
+  }
+  .footer-grid ul{ list-style:none; font-size:14.5px; line-height:2.1; }
+  .footer-grid a{ text-decoration:none; }
+  .footer-grid a:hover{ text-decoration:underline; }
+  .footer-bottom{
+    margin-top:56px;
+    padding-top:24px;
+    border-top:1px solid var(--line-soft);
+    display:flex;
+    justify-content:space-between;
+    font-size:12.5px;
+    color:#9A9A9A;
+    flex-wrap:wrap;
+    gap:10px;
+    font-family:'JetBrains Mono',monospace;
+  }
+</style>
+</head>
+<body>
+
+  <div class="brand-tab">
+    <span class="mono">ecosistema huehaci .</span>
+    <div class="dot"></div>
+  </div>
+
+  <header class="nav">
+    <div class="nav-inner">
+      <a href="#" class="nav-logo" aria-label="Huehaci — inicio">
+        <span class="logomark nav-mark"><span class="e-hl">e</span><span class="apostrophe">’</span></span>
+      </a>
+      <nav class="nav-links">
+        <a href="#ejes">Ejes</a>
+        <a href="#herramientas">Herramientas</a>
+        <a href="#caipli-lab">Casos de uso</a>
+        <a href="#organizaciones">Organizaciones</a>
+        <a href="#contacto">Contacto</a>
+      </nav>
+      <a href="#contacto" class="btn btn-solid" style="padding:10px 18px; font-size:13px;">Hablemos →</a>
+    </div>
+  </header>
+
+  <main class="pad-right">
+
+    <!-- HERO -->
+    <section class="hero wrap">
+      <div class="hero-grid">
+        <div>
+          <div class="kicker-rule"></div>
+          <h1 class="giant">HUEHACI</h1>
+          <div class="hero-sub">Consultoría cívico de innovación pública, ciencia y tecnología</div>
+          <p class="hero-def">
+            <b>[definición]</b> sustentabilidad con impacto
+            <span class="hl">humano</span> (hu),
+            <span class="hl">económico</span> (e),
+            <span class="hl">habitacional</span> (ha),
+            <span class="hl">cultural</span> (c) e
+            <span class="hl">innovación</span> (i).
+          </p>
+          <div class="hero-ctas">
+            <a href="#ejes" class="btn btn-solid">Ver los 7 ejes ↓</a>
+            <a href="#herramientas" class="btn btn-ghost">Conocé las herramientas →</a>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- MISION -->
+    <section class="mision wrap">
+      <p class="eyebrow">nuestra misión</p>
+      <p class="mision-quote" style="margin-top:18px;">
+        Conectar la <span class="hl">ciencia</span> y la <span class="hl">conciencia</span> a nuestra forma de
+        <b>vivir</b>, <b>producir</b>, <b>consumir</b> y <b>gobernar</b>.
+      </p>
+      <p class="mision-src mono">— ecosistema huehaci</p>
+    </section>
+
+    <!-- EJES -->
+    <section class="ejes wrap" id="ejes">
+      <div class="section-head reveal">
+        <p class="eyebrow">qué hacemos? cómo?</p>
+        <h2>Cococo Este</h2>
+        <p>
+          Huehaci ordena todo lo que hace en 7 ejes de intervención. De ahí nacen las herramientas
+          de gestión — Korai, Pulso, OportunAI y Koratic entre ellas — que ponen ese ecosistema a
+          disposición de organizaciones y gobiernos.
+        </p>
+        <div class="acronym-strip">
+          <span class="chip active">CO</span>
+          <span class="chip active">CO</span>
+          <span class="chip active">CO</span>
+          <span class="chip">E</span>
+          <span class="chip">S</span>
+          <span class="chip">T</span>
+          <span class="chip">E</span>
+        </div>
+      </div>
+
+      <div class="eje-list-wrap">
+
+        <!-- CO: Comunidad -->
+        <div class="eje-row reveal">
+          <div class="eje-code">CO</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="8" cy="9" r="3"/><circle cx="17" cy="10" r="2.4"/><path d="M2.5 20c0-3.3 2.5-6 5.5-6s5.5 2.7 5.5 6"/><path d="M14.5 15.2c2.6.2 4.5 2.4 4.5 5.3"/></svg>
+            <h3>Creamos comunidad</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Club y pool de emprendedores</li>
+            <li>Franquicias e incubadora</li>
+            <li>Emprendimientos modulares</li>
+          </ul>
+          <div class="eje-tool-col"></div>
+        </div>
+
+        <!-- CO: Contenido -->
+        <div class="eje-row reveal">
+          <div class="eje-code">CO</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M4 4.5h7a2 2 0 0 1 2 2V19a1.6 1.6 0 0 0-1.6-1.6H4z"/><path d="M20 4.5h-7a2 2 0 0 0-2 2V19a1.6 1.6 0 0 1 1.6-1.6H20z"/></svg>
+            <h3>Generamos contenido</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Investigación y academia</li>
+            <li>Editorial</li>
+            <li>Consultora</li>
+          </ul>
+          <div class="eje-tool-col"></div>
+        </div>
+
+        <!-- CO: Comunicacion -->
+        <div class="eje-row reveal">
+          <div class="eje-code">CO</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M3 10v4h4l6 4V6L7 10z"/><path d="M17 9a4 4 0 0 1 0 6"/><path d="M20 6.5a8 8 0 0 1 0 11"/></svg>
+            <h3>Comunicación e incidencia</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Redes y branding</li>
+            <li>Streaming / radio</li>
+            <li>Podcast y entrevistas</li>
+            <li>Plataforma de noticias</li>
+          </ul>
+          <div class="eje-tool-col"></div>
+        </div>
+
+        <!-- E: Espacio -->
+        <div class="eje-row reveal">
+          <div class="eje-code">E</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 21s7-6.1 7-11.5A7 7 0 0 0 5 9.5C5 14.9 12 21 12 21z"/><circle cx="12" cy="9.3" r="2.2"/></svg>
+            <h3>Gestionamos espacio</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Sedes, co-espacios y host</li>
+            <li>Desarrollo urbano</li>
+            <li>Relevamiento de oportunidades</li>
+          </ul>
+          <div class="eje-tool-col"></div>
+        </div>
+
+        <!-- S: Sistemas -->
+        <div class="eje-row has-tool reveal">
+          <div class="eje-code">S</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><circle cx="12" cy="12" r="3"/><path d="M12 3v3M12 18v3M3 12h3M18 12h3M5.6 5.6l2.1 2.1M16.3 16.3l2.1 2.1M18.4 5.6l-2.1 2.1M7.7 16.3l-2.1 2.1"/></svg>
+            <h3>Desarrollamos sistemas</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Sistemas de gestión</li>
+            <li>Desarrollo de sistemas a medida</li>
+          </ul>
+          <div class="eje-tool-col">
+            <a href="#korai" class="tool-pill"><span class="swatch" style="background:var(--ember);"></span>Korai</a>
+            <a href="#pulso" class="tool-pill"><span class="swatch" style="background:var(--gold);"></span>Pulso</a>
+            <a href="#oportunai" class="tool-pill"><span class="swatch" style="background:var(--yellow);"></span>OportunAI</a>
+            <a href="#emood" class="tool-pill"><span class="swatch" style="background:linear-gradient(135deg, var(--emood-teal), var(--emood-green));"></span>e-Mood</a>
+          </div>
+        </div>
+
+        <!-- T: Transparencia -->
+        <div class="eje-row has-tool reveal">
+          <div class="eje-code">T</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 3l7 3v6c0 4.5-3 7.5-7 9-4-1.5-7-4.5-7-9V6z"/><path d="M9.2 12l2 2 3.6-4"/></svg>
+            <h3>Brindamos transparencia</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Compliance y certificadora</li>
+            <li>Plataforma de licitación</li>
+          </ul>
+          <div class="eje-tool-col">
+            <a href="#koratic" class="tool-pill"><span class="swatch" style="background:var(--navy);"></span>Koratic</a>
+          </div>
+        </div>
+
+        <!-- E: Eventos -->
+        <div class="eje-row reveal">
+          <div class="eje-code">E</div>
+          <div class="eje-title-col">
+            <svg class="icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><rect x="3.5" y="5" width="17" height="15" rx="1"/><path d="M3.5 9.5h17M8 3v3.5M16 3v3.5"/></svg>
+            <h3>Organizamos programación y eventos</h3>
+          </div>
+          <ul class="eje-list">
+            <li>Cultura y arte</li>
+            <li>Hitos y programación</li>
+            <li>Formatos de eventos y concursos</li>
+          </ul>
+          <div class="eje-tool-col"></div>
+        </div>
+
+      </div>
+    </section>
+
+    <!-- HERRAMIENTAS -->
+    <section class="herramientas" id="herramientas">
+      <div class="wrap">
+        <div class="section-head reveal">
+          <p class="eyebrow">herramientas</p>
+          <h2>Cinco sistemas, un mismo ecosistema</h2>
+          <p>Cada herramienta nace de uno de los ejes de Huehaci y puede usarse sola o integrada al resto — la infraestructura común que sostiene la gestión territorial.</p>
+        </div>
+
+        <div class="tools-grid five reveal">
+
+          <div class="tool-card" id="korai">
+            <div class="top-row">
+              <div class="tool-icon korai"></div>
+              <span class="eje-tag">eje S · sistemas</span>
+            </div>
+            <div>
+              <div class="role">Diagnóstico comunitario</div>
+              <h3>Korai</h3>
+            </div>
+            <p class="desc">Conocé a las familias y personas de tu comunidad. Diagnóstico en 7 dimensiones, seguimiento y planes de acción para mejorar su bienestar — acompañamiento real por WhatsApp, no notificaciones genéricas. Ya lleva +12.000 conversaciones realizadas y +5.500 personas acompañadas, 24/7.</p>
+            <a href="https://korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+          </div>
+
+          <div class="tool-card" id="pulso">
+            <div class="top-row">
+              <div class="tool-icon pulso"></div>
+              <span class="eje-tag">eje S · sistemas</span>
+            </div>
+            <div>
+              <div class="role">Seguimiento territorial</div>
+              <h3>Pulso</h3>
+            </div>
+            <p class="desc">Focalización, informes evolutivos y seguimiento territorial. Asistencia, permanencia, alertas y toda la información en tiempo real.</p>
+            <a href="#contacto" class="go">Conocé más →</a>
+          </div>
+
+          <div class="tool-card" id="oportunai">
+            <div class="top-row">
+              <div class="tool-icon oportunai"></div>
+              <span class="eje-tag">eje S · sistemas</span>
+            </div>
+            <div>
+              <div class="role">Generación de oportunidades</div>
+              <h3>OportunAI</h3>
+            </div>
+            <p class="desc">Generá oportunidades para tu comunidad. Conectá a las personas con empleo, capacitación y recursos para su desarrollo.</p>
+            <a href="https://oportunai.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+          </div>
+
+          <div class="tool-card" id="koratic">
+            <div class="top-row">
+              <div class="tool-icon koratic"></div>
+              <span class="eje-tag">eje T · transparencia</span>
+            </div>
+            <div>
+              <div class="role">Infraestructura de gestión</div>
+              <h3>Koratic</h3>
+            </div>
+            <p class="desc">Cumplimiento, operación y prestadores en un solo lugar. Controlá vencimientos, inspecciones, documentación y tu red de prestadores verificados.</p>
+            <a href="https://tic.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+          </div>
+
+          <div class="tool-card" id="emood">
+            <div class="top-row">
+              <div class="tool-icon emood"></div>
+              <span class="eje-tag">eje S · sistemas</span>
+            </div>
+            <div>
+              <div class="role">Sistema de gestión modular</div>
+              <h3>e-Mood</h3>
+            </div>
+            <p class="desc">Centraliza prestadores y gestiona la operación: convierte cada función en un módulo asignable, certificable y medible — bloques de gestión que se combinan en una unidad de sentido, un emprendimiento con propósito definido, y se miden mes a mes en producto implementado, horas certificadas e impacto generado. El primer ecosistema vivo es Caipli Norte: 6 módulos activos, 160hs comprometidas por mes.</p>
+            <a href="https://e-mood.app" class="go" target="_blank" rel="noopener">Conocé más →</a>
+          </div>
+
+        </div>
+      </div>
+    </section>
+
+    <!-- CASO DE USO: CAIPLI LAB -->
+    <section class="caso wrap" id="caipli-lab">
+      <div class="section-head reveal">
+        <p class="eyebrow">caso de uso · franquicias</p>
+        <h2>Caipli Lab <span class="beta-tag mono">generación beta</span></h2>
+        <p>
+          La reconversión de un Centro de Primera Infancia en un espacio modelo, replicable como
+          franquicia. Caipli activa los siete ejes de Huehaci al mismo tiempo — comunidad, espacio,
+          contenidos, sistemas, eventos, comunicación y transparencia — con e-Mood, Pulso, Korai y
+          OportunAI integrados en un solo ecosistema.
+        </p>
+      </div>
+
+      <div class="caso-panel reveal">
+        <div class="caso-ejes">
+          <span class="chip active">CO</span>
+          <span class="chip active">E</span>
+          <span class="chip active">CO</span>
+          <span class="chip active">S</span>
+          <span class="chip active">E</span>
+          <span class="chip active">CO</span>
+          <span class="chip active">T</span>
+        </div>
+        <div class="caso-labels mono">Comunidad · Espacio · Contenidos · Sistemas · Eventos · Comunicación · Transparencia</div>
+
+        <hr class="hairline-soft" style="margin:28px 0;">
+
+        <div class="caso-tools">
+          <a href="#emood" class="tool-pill"><span class="swatch" style="background:linear-gradient(135deg, var(--emood-teal), var(--emood-green));"></span>e-Mood</a>
+          <a href="#pulso" class="tool-pill"><span class="swatch" style="background:var(--gold);"></span>Pulso</a>
+          <a href="#korai" class="tool-pill"><span class="swatch" style="background:var(--ember);"></span>Korai</a>
+          <a href="#oportunai" class="tool-pill"><span class="swatch" style="background:var(--yellow);"></span>OportunAI</a>
+        </div>
+
+        <a href="caipli-lab.html" target="_blank" rel="noopener" class="go" style="margin-top:26px; display:inline-flex;">Ver todo lo que hace la Generación Beta →</a>
+      </div>
+    </section>
+
+    <!-- ORGANIZACIONES -->
+    <section class="orgs wrap" id="organizaciones">
+      <div class="section-head reveal">
+        <p class="eyebrow">para quién</p>
+        <h2>Organizaciones que transforman comunidades</h2>
+        <p>Las herramientas de Huehaci están pensadas para quienes gestionan bienestar y desarrollo territorial en el día a día.</p>
+      </div>
+      <div class="org-grid reveal">
+        <div class="org-cell">Centros de Primera Infancia</div>
+        <div class="org-cell">Centros de Inclusión Social</div>
+        <div class="org-cell">Centros de Día</div>
+        <div class="org-cell">Municipios y Provincias</div>
+        <div class="org-cell">Fundaciones y Organizaciones</div>
+        <div class="org-cell">Centros de Familia y Hogares</div>
+      </div>
+    </section>
+
+    <!-- CTA -->
+    <section class="cta" id="contacto">
+      <div class="wrap">
+        <p class="eyebrow" style="color:var(--yellow);">hablemos</p>
+        <h2 style="margin-top:14px;">Más <span class="hl">eficiencia</span>. Más <span class="hl">impacto</span>. Mejores decisiones.</h2>
+        <p>Contanos qué organización gestionás y te mostramos qué eje y qué herramienta de Huehaci le sirve hoy.</p>
+        <div class="hero-ctas">
+          <a href="https://wa.me/5491161210313?text=Hola%2C%20quiero%20saber%20m%C3%A1s%20sobre%20Huehaci." class="btn btn-solid" target="_blank" rel="noopener">Escribinos por WhatsApp →</a>
+          <a href="mailto:hola@huehaci.lat" class="btn btn-ghost">hola@huehaci.lat</a>
+        </div>
+      </div>
+    </section>
+
+    <!-- FOOTER -->
+    <footer class="wrap">
+      <div class="footer-grid">
+        <div>
+          <div class="logo-word" style="margin-bottom:10px;">HUEHACI</div>
+          <p style="color:var(--ink-soft); font-size:14px; max-width:280px; line-height:1.6;">Ecosistema de innovación cívica, ciencia y tecnología. 7 ejes, un mismo propósito.</p>
+        </div>
+        <div>
+          <h4>Herramientas</h4>
+          <ul>
+            <li><a href="#korai">Korai</a></li>
+            <li><a href="#pulso">Pulso</a></li>
+            <li><a href="#oportunai">OportunAI</a></li>
+            <li><a href="#koratic">Koratic</a></li>
+            <li><a href="#emood">e-Mood</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Ecosistema</h4>
+          <ul>
+            <li><a href="#ejes">Los 7 ejes</a></li>
+            <li><a href="#caipli-lab">Caipli Lab</a></li>
+            <li><a href="#organizaciones">Organizaciones</a></li>
+            <li><a href="#contacto">Contacto</a></li>
+          </ul>
+        </div>
+        <div>
+          <h4>Contacto</h4>
+          <ul>
+            <li><a href="mailto:hola@huehaci.lat">hola@huehaci.lat</a></li>
+            <li><a href="https://wa.me/5491161210313" target="_blank" rel="noopener">WhatsApp</a></li>
+          </ul>
+        </div>
+      </div>
+      <div class="footer-bottom">
+        <span>© 2026 Huehaci. Ecosistema huehaci.</span>
+        <span>hu · e · ha · c · i</span>
+      </div>
+    </footer>
+
+  </main>
+
+<script>
+  const io = new IntersectionObserver((entries)=>{
+    entries.forEach(e=>{ if(e.isIntersecting){ e.target.classList.add('in'); io.unobserve(e.target); } });
+  }, { threshold:.12 });
+  document.querySelectorAll('.reveal').forEach(el=>io.observe(el));
+</script>
+
+</body>
+</html>
