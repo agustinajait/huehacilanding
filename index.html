@@ -397,10 +397,14 @@
   .tool-card .role{
     font-size:14px;
     font-weight:700;
-    color:var(--ember);
+    color:var(--ink);
     text-transform:uppercase;
     letter-spacing:.03em;
     font-family:'JetBrains Mono',monospace;
+    text-decoration:underline;
+    text-decoration-color:var(--yellow);
+    text-decoration-thickness:3px;
+    text-underline-offset:3px;
   }
   .tool-card p.desc{
     font-size:15px;
@@ -430,11 +434,7 @@
   .tool-icon.korai{ background:radial-gradient(circle at 35% 30%, var(--gold), var(--ember) 60%, var(--navy) 110%); }
   .tool-icon.pulso{ background:radial-gradient(circle at 35% 30%, #fff 0%, var(--gold) 45%, var(--ember) 100%); }
   .tool-icon.oportunai{ background:radial-gradient(circle at 35% 30%, var(--yellow) 0%, var(--gold) 55%, var(--ember) 110%); }
-  .tool-icon.koratic{ background:radial-gradient(circle at 35% 30%, #4a5f75, var(--navy) 65%, #000 110%); }
   .tool-icon.emood{ background:linear-gradient(135deg, var(--emood-teal) 0%, var(--emood-green) 100%); }
-
-  .tools-grid.five .tool-card:last-child{ grid-column:1 / -1; }
-  .tools-grid.five .tool-card:last-child .desc{ max-width:640px; }
 
   /* ---------- Organizaciones ---------- */
   /* ---------- Caso de uso: Caipli Lab ---------- */
@@ -610,7 +610,7 @@
         <h2>Cococo Este</h2>
         <p>
           Huehaci ordena todo lo que hace en 7 ejes de intervención. De ahí nacen las herramientas
-          de gestión — Korai, Pulso, OportunAI y Koratic entre ellas — que ponen ese ecosistema a
+          de gestión — Korai, Pulso y OportunAI entre ellas — que ponen ese ecosistema a
           disposición de organizaciones y gobiernos.
         </p>
         <div class="acronym-strip">
@@ -718,7 +718,7 @@
             <li>Plataforma de licitación</li>
           </ul>
           <div class="eje-tool-col">
-            <a href="#koratic" class="tool-pill"><span class="swatch" style="background:var(--navy);"></span>Koratic</a>
+            <a href="#pulso" class="tool-pill"><span class="swatch" style="background:var(--gold);"></span>Pulso</a>
           </div>
         </div>
 
@@ -745,11 +745,11 @@
       <div class="wrap">
         <div class="section-head reveal">
           <p class="eyebrow">herramientas</p>
-          <h2>Cinco sistemas, un mismo ecosistema</h2>
+          <h2>Cuatro sistemas, un mismo ecosistema</h2>
           <p>Cada herramienta nace de uno de los ejes de Huehaci y puede usarse sola o integrada al resto — la infraestructura común que sostiene la gestión territorial.</p>
         </div>
 
-        <div class="tools-grid five reveal">
+        <div class="tools-grid reveal">
 
           <div class="tool-card" id="korai">
             <div class="top-row">
@@ -770,11 +770,11 @@
               <span class="eje-tag">eje S · sistemas</span>
             </div>
             <div>
-              <div class="role">Relevamiento territorial</div>
+              <div class="role">Plataforma integral de gestión</div>
               <h3>Pulso</h3>
             </div>
-            <p class="desc">Relevamientos ágiles puerta a puerta, con formularios dinámicos y datos georreferenciados. Caso de uso: Censo Flash, el operativo de relevamiento exprés de Huehaci.</p>
-            <a href="#contacto" class="go">Conocé más →</a>
+            <p class="desc">Centralizamos la gestión operativa — convirtiendo datos cotidianos en decisiones de mayor impacto. Focalización, informes evolutivos, cumplimiento, operación y prestadores en un solo lugar.</p>
+            <a href="https://tic.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
           </div>
 
           <div class="tool-card" id="oportunai">
@@ -788,19 +788,6 @@
             </div>
             <p class="desc">Generá oportunidades para tu comunidad. Conectá a las personas con empleo, capacitación y recursos para su desarrollo.</p>
             <a href="https://oportunai.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
-          </div>
-
-          <div class="tool-card" id="koratic">
-            <div class="top-row">
-              <div class="tool-icon koratic"></div>
-              <span class="eje-tag">eje T · transparencia</span>
-            </div>
-            <div>
-              <div class="role">Infraestructura de gestión</div>
-              <h3>Koratic</h3>
-            </div>
-            <p class="desc">Cumplimiento, operación y prestadores en un solo lugar: vencimientos, inspecciones, documentación y una red de prestadores verificados, con foco y seguimiento territorial en tiempo real. Caso de uso: Caipli, como sistema de gestión.</p>
-            <a href="https://tic.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
           </div>
 
           <div class="tool-card" id="emood">
@@ -852,7 +839,6 @@
           <a href="#pulso" class="tool-pill"><span class="swatch" style="background:var(--gold);"></span>Pulso</a>
           <a href="#korai" class="tool-pill"><span class="swatch" style="background:var(--ember);"></span>Korai</a>
           <a href="#oportunai" class="tool-pill"><span class="swatch" style="background:var(--yellow);"></span>OportunAI</a>
-          <a href="#koratic" class="tool-pill"><span class="swatch" style="background:var(--navy);"></span>Koratic</a>
         </div>
 
         <a href="caipli-lab.html" target="_blank" rel="noopener" class="go" style="margin-top:26px; display:inline-flex;">Ver todo lo que hace la Generación Beta →</a>
@@ -902,7 +888,6 @@
             <li><a href="#korai">Korai</a></li>
             <li><a href="#pulso">Pulso</a></li>
             <li><a href="#oportunai">OportunAI</a></li>
-            <li><a href="#koratic">Koratic</a></li>
             <li><a href="#emood">e-Mood</a></li>
           </ul>
         </div>
