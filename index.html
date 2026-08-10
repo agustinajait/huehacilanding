@@ -225,6 +225,26 @@
   }
   .hero-mark-col{ display:none; }
 
+  .scroll-cue{
+    position:absolute;
+    left:56px;
+    bottom:22px;
+    display:inline-flex;
+    align-items:center;
+    justify-content:center;
+    width:34px; height:34px;
+    color:var(--ink-soft);
+    animation:scrollBounce 1.8s ease-in-out infinite;
+  }
+  .scroll-cue svg{ width:18px; height:18px; }
+  .scroll-cue:hover, .scroll-cue:focus-visible{ color:var(--ink); }
+  @keyframes scrollBounce{
+    0%,100%{ transform:translateY(0); }
+    50%{ transform:translateY(8px); }
+  }
+  @media (max-width:900px){ .scroll-cue{ left:24px; } }
+  @media (max-width:600px){ .scroll-cue{ display:none; } }
+
   /* ---------- Mision ---------- */
   .mision{
     padding:70px 0 76px;
@@ -591,10 +611,13 @@
           </div>
         </div>
       </div>
+      <a href="#mision" class="scroll-cue" aria-label="Desplazarse hacia abajo">
+        <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6"><path d="M12 4v15M6 13l6 6 6-6"/></svg>
+      </a>
     </section>
 
     <!-- MISION -->
-    <section class="mision wrap">
+    <section class="mision wrap" id="mision">
       <p class="eyebrow">nuestra misión</p>
       <p class="mision-quote" style="margin-top:18px;">
         Conectar la <span class="hl">ciencia</span> y la <span class="hl">conciencia</span> a nuestra forma de
