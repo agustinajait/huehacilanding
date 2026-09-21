@@ -22,6 +22,9 @@
     --paper:#FCFCFB;
     --emood-teal:#2AACD6;
     --emood-green:#7CB93E;
+    --caipedia-wine:#6F2A52;
+    --caipedia-gold:#C9A96E;
+    --pending-gray:#9A9A9A;
   }
   *{box-sizing:border-box; margin:0; padding:0;}
   html{scroll-behavior:smooth; scroll-padding-top:100px;}
@@ -455,6 +458,44 @@
   .tool-icon.pulso{ background:radial-gradient(circle at 35% 30%, #fff 0%, var(--gold) 45%, var(--ember) 100%); }
   .tool-icon.oportunai{ background:radial-gradient(circle at 35% 30%, var(--yellow) 0%, var(--gold) 55%, var(--ember) 110%); }
   .tool-icon.emood{ background:linear-gradient(135deg, var(--emood-teal) 0%, var(--emood-green) 100%); }
+  .tool-icon.academia{ background:radial-gradient(circle at 35% 30%, #fff 0%, var(--gold) 55%, var(--ember) 115%); }
+  .tool-icon.revolucion-e{ background:linear-gradient(135deg, var(--gold) 0%, var(--emood-green) 100%); }
+  .tool-icon.caipedia{ background:radial-gradient(circle at 35% 30%, var(--caipedia-gold) 0%, var(--caipedia-wine) 65%, var(--ink) 120%); }
+  .tool-icon.gov-planner{ background:radial-gradient(circle at 35% 30%, #4a5f75, var(--navy) 65%, #000 110%); }
+  .tool-icon.bulle{ background:radial-gradient(circle at 35% 30%, var(--yellow), var(--ember) 60%, var(--navy) 115%); }
+  .tool-icon.agenda-publica{ background:radial-gradient(circle at 35% 30%, #e8e8e8 0%, var(--pending-gray) 70%, #6b6b6b 120%); }
+  .tool-icon.pending{ background:#fff; border:1.5px dashed var(--pending-gray); }
+
+  .tools-group{ margin-top:60px; }
+  .tools-group:first-of-type{ margin-top:0; }
+  .tools-group-head{
+    display:flex; align-items:baseline; gap:16px;
+    margin-bottom:18px;
+    padding-bottom:10px;
+    border-bottom:1px solid var(--line-soft);
+  }
+  .tools-group-head h3{
+    font-family:'JetBrains Mono',monospace;
+    font-size:13px; font-weight:700; text-transform:uppercase; letter-spacing:.1em;
+    color:var(--ink); white-space:nowrap;
+  }
+  .tools-group-head p{
+    font-size:13.5px; color:var(--ink-soft); line-height:1.4;
+  }
+  @media (max-width:700px){ .tools-group-head{ flex-direction:column; align-items:flex-start; gap:6px; } }
+
+  .tools-grid .tool-card:last-child:nth-child(odd){ grid-column:1 / -1; }
+  .tools-grid .tool-card:last-child:nth-child(odd) .desc{ max-width:640px; }
+
+  .tool-card .status-tag{
+    font-family:'JetBrains Mono',monospace;
+    font-size:11px; font-weight:700; letter-spacing:.05em;
+    padding:4px 8px;
+    border:1px solid var(--pending-gray);
+    color:var(--pending-gray);
+    white-space:nowrap;
+    text-transform:uppercase;
+  }
 
   /* ---------- Organizaciones ---------- */
   /* ---------- Caso de uso: Caipli Lab ---------- */
@@ -768,64 +809,196 @@
       <div class="wrap">
         <div class="section-head reveal">
           <p class="eyebrow">herramientas</p>
-          <h2>Cuatro sistemas, un mismo ecosistema</h2>
-          <p>Cada herramienta nace de uno de los ejes de Huehaci y puede usarse sola o integrada al resto — la infraestructura común que sostiene la gestión territorial.</p>
+          <h2>Herramientas para cada actor del ecosistema</h2>
+          <p>Cada herramienta responde a quién la usa — desde destinatarios directos hasta gobiernos y organizaciones — y puede usarse sola o integrada al resto.</p>
         </div>
 
-        <div class="tools-grid reveal">
-
-          <div class="tool-card" id="korai">
-            <div class="top-row">
-              <div class="tool-icon korai"></div>
-              <span class="eje-tag">eje S · sistemas</span>
-            </div>
-            <div>
-              <div class="role">Diagnóstico comunitario</div>
-              <h3>Korai</h3>
-            </div>
-            <p class="desc">Conocé a las familias y personas de tu comunidad. Diagnóstico en 7 dimensiones, seguimiento y planes de acción para mejorar su bienestar — acompañamiento real por WhatsApp, no notificaciones genéricas. Ya lleva +12.000 conversaciones realizadas y +5.500 personas acompañadas, 24/7.</p>
-            <a href="https://korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+        <!-- Para destinatarios -->
+        <div class="tools-group reveal">
+          <div class="tools-group-head">
+            <h3>Para destinatarios</h3>
           </div>
+          <div class="tools-grid">
 
-          <div class="tool-card" id="pulso">
-            <div class="top-row">
-              <div class="tool-icon pulso"></div>
-              <span class="eje-tag">eje S · sistemas</span>
+            <div class="tool-card" id="korai">
+              <div class="top-row">
+                <div class="tool-icon korai"></div>
+                <span class="eje-tag">eje S · sistemas</span>
+              </div>
+              <div>
+                <div class="role">Diagnóstico comunitario</div>
+                <h3>Korai</h3>
+              </div>
+              <p class="desc">Conocé a las familias y personas de tu comunidad. Diagnóstico en 7 dimensiones, seguimiento y planes de acción para mejorar su bienestar — acompañamiento real por WhatsApp, no notificaciones genéricas. Ya lleva +12.000 conversaciones realizadas y +5.500 personas acompañadas, 24/7.</p>
+              <a href="https://korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
             </div>
-            <div>
-              <div class="role">Plataforma integral de gestión</div>
-              <h3>Pulso</h3>
+
+            <div class="tool-card" id="oportunai">
+              <div class="top-row">
+                <div class="tool-icon oportunai"></div>
+                <span class="eje-tag">eje S · sistemas</span>
+              </div>
+              <div>
+                <div class="role">Generación de oportunidades</div>
+                <h3>OportunAI</h3>
+              </div>
+              <p class="desc">Generá oportunidades para tu comunidad. Conectá a las personas con empleo, capacitación y recursos para su desarrollo.</p>
+              <a href="https://oportunai.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
             </div>
-            <p class="desc">Centralizamos la gestión operativa — convirtiendo datos cotidianos en decisiones de mayor impacto. Focalización, informes evolutivos, cumplimiento, operación y prestadores en un solo lugar.</p>
-            <a href="https://tic.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+
           </div>
+        </div>
 
-          <div class="tool-card" id="oportunai">
-            <div class="top-row">
-              <div class="tool-icon oportunai"></div>
-              <span class="eje-tag">eje S · sistemas</span>
-            </div>
-            <div>
-              <div class="role">Generación de oportunidades</div>
-              <h3>OportunAI</h3>
-            </div>
-            <p class="desc">Generá oportunidades para tu comunidad. Conectá a las personas con empleo, capacitación y recursos para su desarrollo.</p>
-            <a href="https://oportunai.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
+        <!-- Gestión de centros y proyecto -->
+        <div class="tools-group reveal">
+          <div class="tools-group-head">
+            <h3>Gestión de centros y proyecto</h3>
           </div>
+          <div class="tools-grid">
 
-          <div class="tool-card" id="emood">
-            <div class="top-row">
-              <div class="tool-icon emood"></div>
-              <span class="eje-tag">eje S · sistemas</span>
+            <div class="tool-card" id="pulso">
+              <div class="top-row">
+                <div class="tool-icon pulso"></div>
+                <span class="eje-tag">eje S · sistemas</span>
+              </div>
+              <div>
+                <div class="role">Plataforma integral de gestión</div>
+                <h3>Pulso</h3>
+              </div>
+              <p class="desc">Centralizamos la gestión operativa — convirtiendo datos cotidianos en decisiones de mayor impacto. Focalización, informes evolutivos, cumplimiento, operación y prestadores en un solo lugar.</p>
+              <a href="https://tic.korai.lat" class="go" target="_blank" rel="noopener">Conocé más →</a>
             </div>
-            <div>
-              <div class="role">Sistema de gestión modular</div>
-              <h3>e-Mood</h3>
-            </div>
-            <p class="desc">Centralizá prestadores y gestioná la operación: convierte cada función en un módulo asignable, certificable y medible — bloques de gestión que se combinan en una unidad de sentido, un emprendimiento con propósito definido, y se miden mes a mes en producto implementado, horas certificadas e impacto generado.</p>
-            <a href="https://e-mood.app" class="go" target="_blank" rel="noopener">Conocé más →</a>
+
           </div>
+        </div>
 
+        <!-- Gestión de mapa de actores -->
+        <div class="tools-group reveal">
+          <div class="tools-group-head">
+            <h3>Gestión de mapa de actores</h3>
+          </div>
+          <div class="tools-grid">
+
+            <div class="tool-card" id="mapa-actores">
+              <div class="top-row">
+                <div class="tool-icon pending"></div>
+                <span class="status-tag">en construcción</span>
+              </div>
+              <div>
+                <div class="role">Mapa de actores y articulación</div>
+                <h3>Gestión de mapa de actores</h3>
+              </div>
+              <p class="desc">Gestión de refuerzos y mapa de contención territorial, para articular con otros actores. Pensada también como solución para emprendedores y franquicias que necesitan coordinar su propia red.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Para emprendedores -->
+        <div class="tools-group reveal">
+          <div class="tools-group-head">
+            <h3>Para emprendedores</h3>
+          </div>
+          <div class="tools-grid">
+
+            <div class="tool-card" id="academia">
+              <div class="top-row">
+                <div class="tool-icon academia"></div>
+              </div>
+              <div>
+                <div class="role">Formación y contenidos</div>
+                <h3>Academia</h3>
+              </div>
+              <p class="desc">Catálogo de MOCs por producto, en construcción. Mientras tanto, ya está disponible el curso <b>Operador Sociocomunitario</b>: formación para trabajar con personas en situación de calle, emprendedores socioeducativos, y desarrollo humano y económico.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+            <div class="tool-card" id="revolucion-e">
+              <div class="top-row">
+                <div class="tool-icon revolucion-e"></div>
+              </div>
+              <div>
+                <div class="role">Club y pool de emprendedores</div>
+                <h3>Revolución E</h3>
+              </div>
+              <p class="desc">La membresía de la nueva vida emprendedora: comunidad, beneficios reales (obra social, gimnasio, seguro de retiro, respaldo por falta de productividad) y conexión con el resto de los programas de Huehaci — Quiero Emprender, Aceleración con IA, Franquicias y Certificaciones.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+            <div class="tool-card" id="emood">
+              <div class="top-row">
+                <div class="tool-icon emood"></div>
+                <span class="eje-tag">eje S · sistemas</span>
+              </div>
+              <div>
+                <div class="role">Sistema de gestión modular</div>
+                <h3>e-Mood</h3>
+              </div>
+              <p class="desc">Centralizá prestadores y gestioná la operación: convierte cada función en un módulo asignable, certificable y medible — bloques de gestión que se combinan en una unidad de sentido, un emprendimiento con propósito definido, y se miden mes a mes en producto implementado, horas certificadas e impacto generado.</p>
+              <a href="https://e-mood.app" class="go" target="_blank" rel="noopener">Conocé más →</a>
+            </div>
+
+            <div class="tool-card" id="caipedia">
+              <div class="top-row">
+                <div class="tool-icon caipedia"></div>
+              </div>
+              <div>
+                <div class="role">Biblioteca de contenidos</div>
+                <h3>Caipedia</h3>
+              </div>
+              <p class="desc">Biblioteca de contenidos generados por emprendedores y por los propios proyectos y productos de Huehaci — organizada por eje, con búsqueda y colecciones.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+          </div>
+        </div>
+
+        <!-- Para gobiernos y organizaciones -->
+        <div class="tools-group reveal">
+          <div class="tools-group-head">
+            <h3>Para gobiernos y organizaciones</h3>
+          </div>
+          <div class="tools-grid">
+
+            <div class="tool-card" id="agenda-publica">
+              <div class="top-row">
+                <div class="tool-icon agenda-publica"></div>
+                <span class="status-tag">en construcción</span>
+              </div>
+              <div>
+                <div class="role">Opinión pública</div>
+                <h3>Agenda Pública</h3>
+              </div>
+              <p class="desc">Scraping y encuestas de opinión pública sobre distintos temas, organizadas por foco temático.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+            <div class="tool-card" id="gov-planner">
+              <div class="top-row">
+                <div class="tool-icon gov-planner"></div>
+              </div>
+              <div>
+                <div class="role">Planificación de gobierno</div>
+                <h3>GOV Planner</h3>
+              </div>
+              <p class="desc">Relatos y buenas prácticas de gestión, convertidos en un planner de acción en base a la Agenda Pública y la opinión ciudadana.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+            <div class="tool-card" id="bulle">
+              <div class="top-row">
+                <div class="tool-icon bulle"></div>
+              </div>
+              <div>
+                <div class="role">Retorno e impacto</div>
+                <h3>BULLE</h3>
+              </div>
+              <p class="desc">Medí el retorno de tus implementaciones y categorizá empresas para convocatorias públicas.</p>
+              <a href="#contacto" class="go">Conocé más →</a>
+            </div>
+
+          </div>
         </div>
       </div>
     </section>
